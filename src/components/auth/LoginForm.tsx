@@ -13,7 +13,6 @@ export default function LoginForm(){
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         //API goes here
     }
 
@@ -28,8 +27,10 @@ export default function LoginForm(){
             <Input id="password" name="password" placeholder="Enter account password" type="password"
                     onChange={(e) => setPassword(e.target.value)}   className="w-[300px] h-auto border-2 border-white px-3 py-1"/>
             
+            <Button onClick={() => console.log("Login submit")} className="text-white active:scale-50 transform-transition duration-260 px-6 py-1 rounded-xl bg-[rgba(255,250,67,0.8)]" label="Login"/>
+
+            <Button onClick={() => console.log("Login submit")} className="text-white active:scale-50 transform-transition duration-260" label="Google Account"/>
             
-            <Button onClick={() => console.log("Login submit")} className="text-white" label="login"/>
         </div>
     </form>
 }
