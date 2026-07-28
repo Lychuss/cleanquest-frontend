@@ -1,12 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import Button from "@/src/components/ui/button";
+import { useRouter } from "next/navigation";
 
-export default function Login() {
+export default function Home() {
 
+  const router = useRouter();
+
+  // Redirect to login page
   const play_now_button = () => {
-    console.log("login");
+    console.log("button clicked");
+    router.push("/login");
   }
 
   return (
@@ -16,11 +20,11 @@ export default function Login() {
 
                 <div>
                   <Image alt="game-logo" src="/logo/cleanquest-logo.png" 
-                      width={100} height={10} className="absolute left-1 w-[100px] h-auto" loading="eager"/>
+                      width={1000} height={10} className="absolute left-[7px] w-[100px] h-auto" loading="eager"/>
                   
                   <div>
                     <Image alt="gift-icon" src="/icons/gift-code.png" 
-                      width={100} height={10} className="absolute top-2 right-15 w-[70px] h-auto z-10" loading="eager"/>
+                      width={1000} height={10} className="absolute top-[7px] right-[60px] w-[70px] h-auto z-10" loading="eager"/>
 
                     <input placeholder="Redeem Code" 
                       className="absolute top-5  right-0 z-1 p-0 m-0 w-[95px] py-1 h-[20px] text-[8px] text-center
@@ -30,11 +34,11 @@ export default function Login() {
                 </div>
 
                 <Image alt="login-title" src="/text/login-page-title-final1.png" 
-                    width={300} height={100} className="absolute top-80 w-[500px] h-auto" loading="eager"/>
+                    width={1000} height={100} className="absolute top-[300px] w-[500px] h-auto" loading="eager"/>
 
                 
-                <Image alt="play-now" src="/icons/button-play-now.png" 
-                    width={150} height={100} className="absolute top-130 w-[200px] h-auto active:scale-95 transition-transform duration-150" loading="eager"/>
+                <Image alt="play-now" src="/icons/button-play-now.png" onClick={play_now_button}
+                    width={1000} height={100} className="absolute top-[480px] w-[200px] h-auto active:scale-95 transition-transform duration-150 z-20" loading="eager"/>
                 
             </div>
         </section>

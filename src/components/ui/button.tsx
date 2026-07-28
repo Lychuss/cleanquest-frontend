@@ -1,6 +1,6 @@
 type MyComponent = {
-    onClick: () => void;
-    className: string;
+    onClick?: () => void;
+    className?: string;
     label: string;
 }
 
