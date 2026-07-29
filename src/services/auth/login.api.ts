@@ -1,0 +1,34 @@
+import { authClient } from "@/src/libs/authclient";
+import { LoginInterface } from "../types/login.type";
+
+export async function LoginEmailApi(accountData: LoginInterface){
+
+    const {email, password} = accountData;
+
+    console.log(email, password);
+
+    const { data, error }= await authClient.signIn.email(
+        {email, password},
+        {
+            onRequest: () => {
+                //loading
+            },
+            onSuccess: (ctx) => {
+                window.location.href = "/home"
+            },
+            onError: (ctx) => {
+                alert(ctx.error.message);
+            }
+        }
+    );
+}
+
+export async function LoginGoogleApi(){
+    await authClient.signIn.social({
+        provider: "google",
+        callbackURL: `${process.env.BASE_URL}/home`
+    });
+}
+
+
+
