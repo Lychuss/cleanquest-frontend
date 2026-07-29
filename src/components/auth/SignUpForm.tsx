@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FcGoogle } from "react-icons/fc";
 
 import Label from "../ui/label";
 import Input from "../ui/input";
 import Button from "../ui/button";
-import Image from "next/image";
 
-export default function LoginForm(){
+export default function SignUpForm(){
 
     const router = useRouter();
 
@@ -32,12 +30,9 @@ export default function LoginForm(){
             <Input id="password" name="password" placeholder="Enter account password" type="password"
                     onChange={(e) => setPassword(e.target.value)}   className="w-[300px] h-auto border-2 border-white px-3 py-1"/>
             
-            <Button onClick={() => console.log("Login submit")} className="text-white active:scale-50 transform-transition duration-260 px-6 py-1 rounded-xl bg-[rgba(255,250,67,0.8)]" label="Login"/>
+            <Button onClick={() => console.log("Login submit")} className="text-white active:scale-50 transform-transition duration-260 px-6 py-1 rounded-xl bg-[rgba(255,250,67,0.8)]" label="Sign Up"/>
 
-            <Button onClick={() =>  router.push("/sign-up")} className="relative top-[40px] text-white active:scale-50 transform-transition duration-260 border-b-1" label="Sign-Up" />
-            
-            <FcGoogle className="relative top-[70px] w-[30px] h-auto"/>
-
+            <Button onClick={() => router.push("/login")} className="absolute top-[300px] text-white active:scale-50 transform-transition duration-260 border-b-1" label="Login Account"/>
             
         </div>
     </form>

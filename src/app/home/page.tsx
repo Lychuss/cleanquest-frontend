@@ -7,12 +7,6 @@ export default function Home() {
 
   const router = useRouter();
 
-  // Redirect to login page
-  const play_now_button = () => {
-    console.log("button clicked");
-    router.push("/login");
-  }
-
   return (
     <main>
         <section  className="min-h-screen w-full bg-[url('/backgrounds/clean-quest-background-homepage.png')] bg-cover bg-center bg-no-repeat">
@@ -37,8 +31,9 @@ export default function Home() {
                     width={1000} height={100} className="absolute top-[300px] w-[500px] h-auto" loading="eager"/>
 
                 
-                <Image alt="play-now" src="/icons/button-play-now.png" onClick={play_now_button}
-                    width={1000} height={100} className="absolute top-[480px] w-[200px] h-auto active:scale-95 transition-transform duration-150 z-20" loading="eager"/>
+                <Image alt="play-now" src="/icons/button-play-now.png" onClick={() => router.push("/login")}
+                    width={1000} height={100} className="absolute top-[480px] w-[200px] h-auto active:scale-95 transition-transform duration-150 z-20" 
+                    loading="eager"/>
                 
             </div>
         </section>
