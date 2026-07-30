@@ -11,7 +11,7 @@ export async function LoginEmailApi(accountData: LoginInterface){
         {email, password},
         {
             onRequest: () => {
-                //loading
+
             },
             onSuccess: (ctx) => {
                 window.location.href = "/home"
@@ -26,7 +26,7 @@ export async function LoginEmailApi(accountData: LoginInterface){
 export async function LoginGoogleApi(){
     await authClient.signIn.social({
         provider: "google",
-        callbackURL: `${process.env.BASE_URL}/home`
+        callbackURL: `${process.env.NEXT_PUBLIC_CALLBACK_URL}/home`
     });
 }
 
