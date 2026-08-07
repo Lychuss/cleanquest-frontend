@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "auth": "^1.6.26",
     "better-auth": "^1.6.25",
     "dotenv": "^17.4.2",
     "next": "16.2.11",

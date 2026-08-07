@@ -14,7 +14,7 @@ export async function LoginEmailApi(accountData: LoginInterface){
 
             },
             onSuccess: (ctx) => {
-                window.location.href = "/home"
+                window.location.href = `${process.env.NEXT_PUBLIC_CALLBACK_URL}/dashboard`
             },
             onError: (ctx) => {
                 alert(ctx.error.message);
@@ -26,7 +26,7 @@ export async function LoginEmailApi(accountData: LoginInterface){
 export async function LoginGoogleApi(){
     await authClient.signIn.social({
         provider: "google",
-        callbackURL: `${process.env.NEXT_PUBLIC_CALLBACK_URL}/home`
+        callbackURL: `${process.env.NEXT_PUBLIC_CALLBACK_URL}/dashboard`
     });
 }
 
