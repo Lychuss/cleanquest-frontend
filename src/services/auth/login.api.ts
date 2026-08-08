@@ -5,8 +5,6 @@ export async function LoginEmailApi(accountData: LoginInterface){
 
     const {email, password} = accountData;
 
-    console.log(email, password);
-
     const { data, error }= await authClient.signIn.email(
         {email, password},
         {

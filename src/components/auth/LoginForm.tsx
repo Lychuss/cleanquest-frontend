@@ -40,7 +40,7 @@ export default function LoginForm(){
             
             <Button onClick={() => console.log("Login submit")} className="text-white active:scale-50 transform-transition duration-260 px-6 py-1 rounded-xl bg-[rgba(255,250,67,0.8)]" label="Login"/>
 
-            <Button onClick={() =>  router.push("/sign-up")} className="relative top-[40px] text-white active:scale-50 transform-transition duration-260 border-b-1" label="Sign-Up" />
+            <label onClick={() =>  router.push("/sign-up")} className="relative top-[40px] text-white active:scale-50 transform-transition duration-260 border-b-1">Sign-Up</label>
             
             <FcGoogle onClick={LoginGoogleApi} className="relative top-[70px] w-[30px] h-auto active:scale-50 transform-transition duration-260"/>
             
