@@ -3,9 +3,31 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
+import getDashboard from "@/src/services/auth/dashboard.api";
+
+import { Data } from "@/src/services/types/data.type";
+
 export default function Dashboard(){
 
-    
+    const [data, setData] = useState<Data>();
+
+    const userId = localStorage.getItem("userId");
+
+    if(!userId){
+        return alert("Invalid User ID Server Error");
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getDashboard(userId);
+
+            setData(response)
+        }
+
+        fetchData();
+    }, [])
+
+    console.log(data);
 
     return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full">
         <div className="flex flex-row p-4 items-center">
