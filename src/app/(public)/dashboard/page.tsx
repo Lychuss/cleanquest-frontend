@@ -1,23 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
 import Image from "next/image";
 
-import getDashboard from "@/src/services/auth/dashboard.api";
+import getDashboard from "@/src/services/data/dashboard.api";
 
 import { Data } from "@/src/services/types/data.type";
+
+import { authClient } from "@/src/libs/authclient";
 
 export default function Dashboard(){
 
     const [data, setData] = useState<Data>();
 
-    const userId = localStorage.getItem("userId");
+    const user = authClient.useSession();
 
-    if(!userId){
-        return alert("Invalid User ID Server Error");
-    }
+    const userId = user.data?.session.id;
 
     useEffect(() => {
+
+        if(!userId) return;
+
         const fetchData = async () => {
             const response = await getDashboard(userId);
 
@@ -25,9 +29,9 @@ export default function Dashboard(){
         }
 
         fetchData();
-    }, [])
+    }, [userId])
 
-    console.log(data);
+    if(!userId) return <div>error!!!</div>
 
     return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full">
         <div className="flex flex-row p-4 items-center">
