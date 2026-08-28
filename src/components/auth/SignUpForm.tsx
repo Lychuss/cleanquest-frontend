@@ -1,6 +1,6 @@
 "use client";
 
-import { SignUpInterface } from "@/src/services/types/signup.type";
+import { SignUpInterface } from "@/src/model/types/signup.type";
 
 import SignUpEmailApi from "@/src/services/auth/signup.api";
 

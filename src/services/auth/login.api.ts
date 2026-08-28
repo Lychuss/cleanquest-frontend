@@ -1,5 +1,5 @@
 import { authClient } from "@/src/libs/authclient";
-import { LoginInterface } from "../types/login.type";
+import { LoginInterface } from "../../model/types/login.type";
 
 export async function LoginEmailApi(accountData: LoginInterface){
 

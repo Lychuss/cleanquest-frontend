@@ -1,5 +1,5 @@
 import { authClient } from "@/src/libs/authclient";
-import { SignUpInterface } from "../types/signup.type";
+import { SignUpInterface } from "../../model/types/signup.type";
 
 export default async function SignUpEmailApi(accountData: SignUpInterface){
     const { name, email, password } = accountData;
