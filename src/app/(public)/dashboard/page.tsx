@@ -51,15 +51,15 @@ export default function Dashboard(){
                 className="relative z-10 w-[35px] h-auto" />
             <div className="relative -ml-4 left-0 z-0 text-center w-[60px] h-[13px] bg-black rounded-full overflow-hidden">
                 <div className="relative font-bold text-xs text-center ">
-                  12,000
+                    {data?.data.growth}
                 </div>
             </div>
 
             <Image src="/icons/completed-task-v2.png" alt="completed-task" width={1000} height={1000}
                 className="relative z-10 w-[35px] h-auto" />
-            <div className="relative -ml-4 left-0 z-0 text-center w-[60px] h-[13px] bg-black rounded-full overflow-hidden">
+            <div className="relative -ml-4 left-0 z-0 text-center w-[40px] h-[13px] bg-black rounded-full overflow-hidden">
                 <div className="relative font-bold text-xs text-center ">
-                  12,000
+                    {data?.data.completedTask}
                 </div>
             </div>
         </div>

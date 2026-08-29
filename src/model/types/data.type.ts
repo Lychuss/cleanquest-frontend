@@ -15,6 +15,8 @@ export type Data = {
         evasion: number,
         resistance: number,
         luck: number,
-        stamina: number
+        stamina: number,
+        growth: number,
+        completedTask: number
     }
 }
