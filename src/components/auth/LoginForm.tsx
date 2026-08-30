@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 
-import { LoginInterface } from "@/src/services/types/login.type";
+import { LoginInterface } from "@/src/model/types/login.type";
 
 import Label from "../ui/label";
 import Input from "../ui/input";
