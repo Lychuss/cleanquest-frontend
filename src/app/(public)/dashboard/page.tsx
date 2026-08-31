@@ -11,6 +11,8 @@ import { Data } from "@/src/model/types/data.type";
 import { authClient } from "@/src/libs/authclient";
 import StatsBadge from "@/src/components/ui/statsbadge";
 import PlayerLevel from "@/src/components/ui/playerlevel";
+import QuestsCards from "@/src/components/common/cards/quests";
+import StatsCards from "@/src/components/common/cards/important";
 
 export default function Dashboard(){
 
@@ -46,5 +48,12 @@ export default function Dashboard(){
             <div className="absolute z-0 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]"></div>
             <div className="absolute z-0 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"></div>
         </section>
+
+        <section>
+            <QuestsCards />
+            <StatsCards />
+        </section>
+
+
     </main>
 }
