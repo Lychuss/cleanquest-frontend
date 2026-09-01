@@ -12,7 +12,8 @@ import { authClient } from "@/src/libs/authclient";
 import StatsBadge from "@/src/components/ui/statsbadge";
 import PlayerLevel from "@/src/components/ui/playerlevel";
 import QuestsCards from "@/src/components/common/cards/quests";
-import StatsCards from "@/src/components/common/cards/important";
+import StatsCards from "@/src/components/common/cards/playerstats";
+import ImportantCards from "@/src/components/common/cards/important";
 
 export default function Dashboard(){
 
@@ -51,6 +52,7 @@ export default function Dashboard(){
 
         <section>
             <QuestsCards />
+            <ImportantCards />
             <StatsCards />
         </section>
 
