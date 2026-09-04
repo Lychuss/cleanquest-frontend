@@ -2,7 +2,7 @@
 
 import { SignUpInterface } from "@/src/model/types/signup.type";
 
-import SignUpEmailApi from "@/src/services/auth/signup.api";
+import SignUpEmailApi from "@/src/api/auth/signup.api";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";

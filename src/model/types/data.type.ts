@@ -18,5 +18,17 @@ export type Data = {
         stamina: number,
         growth: number,
         completedTask: number
-    }
+    },
+    importantTask: [
+        {
+            id: string,
+            title: string
+        }
+    ],
+    completedTask: [
+        {
+            title: string,
+            success: boolean
+        }
+    ]
 }

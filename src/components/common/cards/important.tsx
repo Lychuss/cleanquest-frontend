@@ -1,13 +1,18 @@
 import Image from "next/image"
+import type { CompletedTaskList, ImportantTaskList } from "@/src/model/types/important-task.type";
 
-export default function ImportantCards(){
+type MyProps = {
+    completedTask: CompletedTaskList, 
+    importantTask: ImportantTaskList
+}
 
-    const arrayOfTask = [{completed: false, name: "Tidy Room"}, 
-                        {completed: true, name: "Wash Dishes"}, 
-                        {completed: false, name: "Tidy Room"}, 
-                        {completed: true, name: "Wash Dishes"},
-                        {completed: true, name: "Wash Dishes"}
-                    ]
+export default function ImportantCards(props: MyProps){
+
+    const { completedTask, importantTask } = props;
+
+    if(!completedTask || !importantTask){
+        return <div>Error the data is undefined!</div>
+    }
 
     return <>
         <div className="relative">
@@ -23,12 +28,14 @@ export default function ImportantCards(){
                     <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] mb-1">IMPORTANT TASKS</h1>
                     <div>
                         <ul>
-                            {arrayOfTask.map((task, i) => (
-                                <li className="text-[5px]" key={i}>
+                            {importantTask.map((task, i) => (
+                                <li className="text-[5px]" key={task.id}>
                                     <p className="grid grid-cols-[1fr_45px_40px] items-center">
                                         <span className={`inline-block w-4 h-4 bg-cover bg-center
-                                            ${ task.completed ? "bg-[url('/icons/square-check-v2.png')]" : "bg-[url('/icons/square-v2.png')]"}`} />
-                                        <span>{task.name}</span>
+                                            ${ completedTask[i].success
+                                                ? 
+                                            "bg-[url('/icons/square-check-v2.png')]" : "bg-[url('/icons/square-v2.png')]"}`} />
+                                        <span>{task.title}</span>
                                     </p>
                                 </li>
                             ))}
@@ -38,3 +45,5 @@ export default function ImportantCards(){
         </div>
     </>
 }
+
+//
