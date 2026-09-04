@@ -2,7 +2,8 @@ import Image from "next/image"
 
 export default function QuestsCards(){
     return <>
-            <Image src="/icons/quest-progress-v2.png" alt="quest-progress" width={500} height={500} className="absolute z-50 left-3 w-[100px] h-[100px]"/>
+            <Image src="/icons/quest-progress-v2.png" alt="quest-progress" width={500} height={500} 
+            className="absolute z-50 left-3 w-[100px] h-[100px]"/>
             <div className="relative rounded-lg left-5 bg-black/50 top-1 w-[82px] h-[92px] p-2">
 
                 <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] mb-1">QUEST PROGRESS</h1>
