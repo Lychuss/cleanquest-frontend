@@ -36,6 +36,10 @@ export default function Dashboard(){
         return <Loading />;
     }
 
+    if(data?.totalCompletion === undefined){
+        return <div>Error!</div>
+    }
+
     return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard-v2.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full
         has-[.living-room:hover]:bg-[url('/backgrounds/dashboard-background-living-room-v2.png')] 
         has-[.bedroom:hover]:bg-[url('/backgrounds/dashboard-background-room.png')]
@@ -58,7 +62,7 @@ export default function Dashboard(){
         </section>
 
         <section>
-            <QuestsCards />
+            <QuestsCards totalCompletion={data?.totalCompletion}/>
             <ImportantCards completedTask={data?.completedTask} importantTask={data?.importantTask}/>
             <StatsCards />
         </section>

@@ -16,7 +16,7 @@ export default function PlayerLevel(props: MyProps){
                         <div className="absolute inset-y-0 h-full bg-gradient-to-r rounded-full from-yellow-700 to-orange-200
                             transition-all duration-700 ease-out" style={{ width: `${props.exp}%`}}></div>
                     </div>
-                    <h1 className="text-[6px] text-[rgba(154,154,154,0.8)]">{props.exp}/100</h1>
+                    <h1 className="text-[6px] text-[rgba(154,154,154,0.8)]">{props.exp}/100  EXP</h1>
                 </div>
             </div>
 }
