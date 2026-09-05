@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import Image from "next/image";
-
-import getDashboard from "@/src/services/data/dashboard.api";
+import getDashboard from "@/src/api/data/dashboard.api";
 
 import { Data } from "@/src/model/types/data.type";
 
@@ -12,11 +10,14 @@ import { authClient } from "@/src/libs/authclient";
 import StatsBadge from "@/src/components/ui/statsbadge";
 import PlayerLevel from "@/src/components/ui/playerlevel";
 import QuestsCards from "@/src/components/common/cards/quests";
-import StatsCards from "@/src/components/common/cards/important";
+import StatsCards from "@/src/components/common/cards/playerstats";
+import ImportantCards from "@/src/components/common/cards/important";
+import Loading from "@/src/components/layouts/loading";
 
 export default function Dashboard(){
 
     const [data, setData] = useState<Data>();
+    const [loading, setLoading] = useState(true);
     const user = authClient.useSession();
     const userId = user.data?.session.id;
 
@@ -24,9 +25,20 @@ export default function Dashboard(){
 
         if(!userId) return;
 
-        getDashboard(userId).then(setData);
-        
+        async function fetchData() {
+            await getDashboard(userId!).then(setData);
+            setLoading(false);
+        }
+        fetchData();
     }, [userId])
+
+    if(loading){
+        return <Loading />;
+    }
+
+    if(data?.totalCompletion === undefined){
+        return <div>Error!</div>
+    }
 
     return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard-v2.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full
         has-[.living-room:hover]:bg-[url('/backgrounds/dashboard-background-living-room-v2.png')] 
@@ -50,7 +62,8 @@ export default function Dashboard(){
         </section>
 
         <section>
-            <QuestsCards />
+            <QuestsCards totalCompletion={data?.totalCompletion}/>
+            <ImportantCards completedTask={data?.completedTask} importantTask={data?.importantTask}/>
             <StatsCards />
         </section>
 

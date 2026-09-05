@@ -10,8 +10,8 @@ import Label from "../ui/label";
 import Input from "../ui/input";
 import Button from "../ui/button";
 
-import { LoginGoogleApi } from "@/src/services/auth/login.api";
-import { LoginEmailApi } from "@/src/services/auth/login.api";
+import { LoginGoogleApi } from "@/src/api/auth/login.api";
+import { LoginEmailApi } from "@/src/api/auth/login.api";
 
 export default function LoginForm(){
 
