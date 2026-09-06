@@ -9,7 +9,7 @@ export async function LoginEmailApi(accountData: LoginInterface){
         {email, password},
         {
             onRequest: () => {
-
+                
             },
             onSuccess: async (ctx) => {
                 window.location.href = `${process.env.NEXT_PUBLIC_CALLBACK_URL}/dashboard`

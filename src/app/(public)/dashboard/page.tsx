@@ -56,9 +56,9 @@ export default function Dashboard(){
         </section>
 
         <section>
-            <div className="absolute z-0 left-20 top-90 living-room cursor-pointer w-[225px] h-[200px]"></div>
-            <div className="absolute z-0 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]"></div>
-            <div className="absolute z-0 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"></div>
+            <div className="absolute z-100 left-20 top-90 living-room cursor-pointer w-[230px] h-[230px]"></div>
+            <div className="absolute z-100 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]"></div>
+            <div className="absolute z-100 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"></div>
         </section>
 
         <section>
