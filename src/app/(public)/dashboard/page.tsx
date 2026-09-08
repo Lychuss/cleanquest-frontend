@@ -1,11 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
-import getDashboard from "@/src/api/data/dashboard.api";
-
-import { Data } from "@/src/model/types/data.type";
-
 import { authClient } from "@/src/libs/authclient";
 import StatsBadge from "@/src/components/ui/statsbadge";
 import PlayerLevel from "@/src/components/ui/playerlevel";
@@ -13,29 +7,17 @@ import QuestsCards from "@/src/components/common/cards/quests";
 import StatsCards from "@/src/components/common/cards/playerstats";
 import ImportantCards from "@/src/components/common/cards/important";
 import Loading from "@/src/components/layouts/loading";
+import { useStatsBadgeContext } from "@/src/context/StatsBadgeContext";
 
 export default function Dashboard(){
 
-    const [data, setData] = useState<Data>();
-    const [loading, setLoading] = useState(true);
+    const {data, loading} = useStatsBadgeContext();
     const user = authClient.useSession();
-    const userId = user.data?.session.id;
-
-    useEffect(() => {
-
-        if(!userId) return;
-
-        async function fetchData() {
-            await getDashboard(userId!).then(setData);
-            setLoading(false);
-        }
-        fetchData();
-    }, [userId])
 
     if(loading){
         return <Loading />;
     }
-
+    
     if(data?.totalCompletion === undefined){
         return <div>Error!</div>
     }
@@ -48,7 +30,7 @@ export default function Dashboard(){
             <div className="flex flex-row p-4 items-center gap-2">
 
                 <PlayerLevel ign={data?.data.ingameName} level={data?.data.level} exp={data?.data.experience} />
-
+                
                 <StatsBadge icon="/icons/growth-power.png" alt="growth-power" value={data?.data.growth} />
                 <StatsBadge icon="/icons/completed-task-v2.png" alt="completed-task" value={data?.data.completedTask} />
 
