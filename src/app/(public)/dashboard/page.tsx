@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/src/libs/authclient";
+import { useRouter } from "next/navigation";
 import StatsBadge from "@/src/components/ui/statsbadge";
 import PlayerLevel from "@/src/components/ui/playerlevel";
 import QuestsCards from "@/src/components/common/cards/quests";
@@ -10,9 +10,9 @@ import Loading from "@/src/components/layouts/loading";
 import { useStatsBadgeContext } from "@/src/context/StatsBadgeContext";
 
 export default function Dashboard(){
+    const router = useRouter();
 
     const {data, loading} = useStatsBadgeContext();
-    const user = authClient.useSession();
 
     if(loading){
         return <Loading />;
@@ -27,7 +27,7 @@ export default function Dashboard(){
         has-[.bedroom:hover]:bg-[url('/backgrounds/dashboard-background-room.png')]
         has-[.kitchen:hover]:bg-[url('/backgrounds/dashboard-background-kitchen.png')]">
         <section>
-            <div className="flex flex-row p-4 items-center gap-2">
+            <div className="flex p-4 items-center gap-2">
 
                 <PlayerLevel ign={data?.data.ingameName} level={data?.data.level} exp={data?.data.experience} />
                 
@@ -39,7 +39,8 @@ export default function Dashboard(){
 
         <section>
             <div className="absolute z-100 left-20 top-90 living-room cursor-pointer w-[230px] h-[230px]"></div>
-            <div className="absolute z-100 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]"></div>
+            <div className="absolute z-100 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]" 
+                onClick={() => router.push("/bedroom")}></div>
             <div className="absolute z-100 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"></div>
         </section>
 
