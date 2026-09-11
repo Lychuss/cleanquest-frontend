@@ -1,0 +1,1283 @@
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+ 
+---- 
+
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  allowedDevOrigins: ["*.ngrok-free.app", "*.ngrok-free.dev", "10.0.0.2", "closes-quiet-protective-important.trycloudflare.com"],
+};
+
+export default nextConfig;
+ 
+---- 
+
+// Type definitions for Next.js cacheLife configs
+
+declare module 'next/cache' {
+  export { unstable_cache } from 'next/dist/server/web/spec-extension/unstable-cache'
+  export {
+    updateTag,
+    revalidateTag,
+    revalidatePath,
+    refresh,
+  } from 'next/dist/server/web/spec-extension/revalidate'
+  export { unstable_noStore } from 'next/dist/server/web/spec-extension/unstable-no-store'
+
+  
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"default"` profile.
+     * ```
+     *   stale:      300 seconds (5 minutes)
+     *   revalidate: 900 seconds (15 minutes)
+     *   expire:     never
+     * ```
+     * 
+     * This cache may be stale on clients for 5 minutes before checking with the server.
+     * If the server receives a new request after 15 minutes, start revalidating new values in the background.
+     * It lives for the maximum age of the server cache. If this entry has no traffic for a while, it may serve an old value the next request.
+     */
+    export function cacheLife(profile: "default"): void
+    
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"seconds"` profile.
+     * ```
+     *   stale:      30 seconds
+     *   revalidate: 1 seconds
+     *   expire:     60 seconds (1 minute)
+     * ```
+     * 
+     * This cache may be stale on clients for 30 seconds before checking with the server.
+     * If the server receives a new request after 1 seconds, start revalidating new values in the background.
+     * If this entry has no traffic for 1 minute it will expire. The next request will recompute it.
+     */
+    export function cacheLife(profile: "seconds"): void
+    
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"minutes"` profile.
+     * ```
+     *   stale:      300 seconds (5 minutes)
+     *   revalidate: 60 seconds (1 minute)
+     *   expire:     3600 seconds (1 hour)
+     * ```
+     * 
+     * This cache may be stale on clients for 5 minutes before checking with the server.
+     * If the server receives a new request after 1 minute, start revalidating new values in the background.
+     * If this entry has no traffic for 1 hour it will expire. The next request will recompute it.
+     */
+    export function cacheLife(profile: "minutes"): void
+    
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"hours"` profile.
+     * ```
+     *   stale:      300 seconds (5 minutes)
+     *   revalidate: 3600 seconds (1 hour)
+     *   expire:     86400 seconds (1 day)
+     * ```
+     * 
+     * This cache may be stale on clients for 5 minutes before checking with the server.
+     * If the server receives a new request after 1 hour, start revalidating new values in the background.
+     * If this entry has no traffic for 1 day it will expire. The next request will recompute it.
+     */
+    export function cacheLife(profile: "hours"): void
+    
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"days"` profile.
+     * ```
+     *   stale:      300 seconds (5 minutes)
+     *   revalidate: 86400 seconds (1 day)
+     *   expire:     604800 seconds (1 week)
+     * ```
+     * 
+     * This cache may be stale on clients for 5 minutes before checking with the server.
+     * If the server receives a new request after 1 day, start revalidating new values in the background.
+     * If this entry has no traffic for 1 week it will expire. The next request will recompute it.
+     */
+    export function cacheLife(profile: "days"): void
+    
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"weeks"` profile.
+     * ```
+     *   stale:      300 seconds (5 minutes)
+     *   revalidate: 604800 seconds (1 week)
+     *   expire:     2592000 seconds (1 month)
+     * ```
+     * 
+     * This cache may be stale on clients for 5 minutes before checking with the server.
+     * If the server receives a new request after 1 week, start revalidating new values in the background.
+     * If this entry has no traffic for 1 month it will expire. The next request will recompute it.
+     */
+    export function cacheLife(profile: "weeks"): void
+    
+    /**
+     * Cache this `"use cache"` for a timespan defined by the `"max"` profile.
+     * ```
+     *   stale:      300 seconds (5 minutes)
+     *   revalidate: 2592000 seconds (1 month)
+     *   expire:     31536000 seconds (365 days)
+     * ```
+     * 
+     * This cache may be stale on clients for 5 minutes before checking with the server.
+     * If the server receives a new request after 1 month, start revalidating new values in the background.
+     * If this entry has no traffic for 365 days it will expire. The next request will recompute it.
+     */
+    export function cacheLife(profile: "max"): void
+    
+    /**
+     * Cache this `"use cache"` using a custom timespan.
+     * ```
+     *   stale: ... // seconds
+     *   revalidate: ... // seconds
+     *   expire: ... // seconds
+     * ```
+     *
+     * This is similar to Cache-Control: max-age=`stale`,s-max-age=`revalidate`,stale-while-revalidate=`expire-revalidate`
+     *
+     * If a value is left out, the lowest of other cacheLife() calls or the default, is used instead.
+     */
+    export function cacheLife(profile: {
+      /**
+       * This cache may be stale on clients for ... seconds before checking with the server.
+       */
+      stale?: number,
+      /**
+       * If the server receives a new request after ... seconds, start revalidating new values in the background.
+       */
+      revalidate?: number,
+      /**
+       * If this entry has no traffic for ... seconds it will expire. The next request will recompute it.
+       */
+      expire?: number
+    }): void
+  
+
+  import { cacheTag } from 'next/dist/server/use-cache/cache-tag'
+  export { cacheTag }
+
+  export const unstable_cacheTag: typeof cacheTag
+  export const unstable_cacheLife: typeof cacheLife
+}
+ 
+---- 
+.
+// This file is generated automatically by Next.js
+// Do not edit this file manually
+
+type AppRoutes = "/dashboard" | "/home" | "/login" | "/sign-up"
+type PageRoutes = never
+type LayoutRoutes = "/"
+type RedirectRoutes = never
+type RewriteRoutes = never
+type Routes = AppRoutes | PageRoutes | LayoutRoutes | RedirectRoutes | RewriteRoutes
+
+
+interface ParamMap {
+  "/": {}
+  "/dashboard": {}
+  "/home": {}
+  "/login": {}
+  "/sign-up": {}
+}
+
+
+export type ParamsOf<Route extends Routes> = ParamMap[Route]
+
+interface LayoutSlotMap {
+  "/": never
+}
+
+
+export type { AppRoutes, PageRoutes, LayoutRoutes, RedirectRoutes, RewriteRoutes, ParamMap }
+
+declare global {
+  /**
+   * Props for Next.js App Router page components
+   * @example
+   * ```tsx
+   * export default function Page(props: PageProps<'/blog/[slug]'>) {
+   *   const { slug } = await props.params
+   *   return <div>Blog post: {slug}</div>
+   * }
+   * ```
+   */
+  interface PageProps<AppRoute extends AppRoutes> {
+    params: Promise<ParamMap[AppRoute]>
+    searchParams: Promise<Record<string, string | string[] | undefined>>
+  }
+
+  /**
+   * Props for Next.js App Router layout components
+   * @example
+   * ```tsx
+   * export default function Layout(props: LayoutProps<'/dashboard'>) {
+   *   return <div>{props.children}</div>
+   * }
+   * ```
+   */
+  type LayoutProps<LayoutRoute extends LayoutRoutes> = {
+    params: Promise<ParamMap[LayoutRoute]>
+    children: React.ReactNode
+  } & {
+    [K in LayoutSlotMap[LayoutRoute]]: React.ReactNode
+  }
+}
+ 
+---- 
+.
+// This file is generated automatically by Next.js
+// Do not edit this file manually
+// This file validates that all pages and layouts export the correct types
+
+import type { AppRoutes, LayoutRoutes, ParamMap } from "./routes.js"
+import type { ResolvingMetadata, ResolvingViewport } from "next/types.js"
+
+type AppPageConfig<Route extends AppRoutes = AppRoutes> = {
+  default: React.ComponentType<{ params: Promise<ParamMap[Route]> } & any> | ((props: { params: Promise<ParamMap[Route]> } & any) => React.ReactNode | Promise<React.ReactNode> | never | void | Promise<void>)
+  generateStaticParams?: (props: { params: ParamMap[Route] }) => Promise<any[]> | any[]
+  generateMetadata?: (
+    props: { params: Promise<ParamMap[Route]> } & any,
+    parent: ResolvingMetadata
+  ) => Promise<any> | any
+  generateViewport?: (
+    props: { params: Promise<ParamMap[Route]> } & any,
+    parent: ResolvingViewport
+  ) => Promise<any> | any
+  metadata?: any
+  viewport?: any
+}
+
+type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
+  default: React.ComponentType<LayoutProps<Route>> | ((props: LayoutProps<Route>) => React.ReactNode | Promise<React.ReactNode> | never | void | Promise<void>)
+  generateStaticParams?: (props: { params: ParamMap[Route] }) => Promise<any[]> | any[]
+  generateMetadata?: (
+    props: { params: Promise<ParamMap[Route]> } & any,
+    parent: ResolvingMetadata
+  ) => Promise<any> | any
+  generateViewport?: (
+    props: { params: Promise<ParamMap[Route]> } & any,
+    parent: ResolvingViewport
+  ) => Promise<any> | any
+  metadata?: any
+  viewport?: any
+}
+
+
+// Validate ../../../src/app/(auth)/login/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/login">> = Specific
+  const handler = {} as typeof import("../../../src/app/(auth)/login/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/(auth)/sign-up/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/sign-up">> = Specific
+  const handler = {} as typeof import("../../../src/app/(auth)/sign-up/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/(public)/dashboard/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/dashboard">> = Specific
+  const handler = {} as typeof import("../../../src/app/(public)/dashboard/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../src/app/home/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/home">> = Specific
+  const handler = {} as typeof import("../../../src/app/home/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+
+
+
+
+
+
+// Validate ../../../src/app/layout.tsx
+{
+  type __IsExpected<Specific extends LayoutConfig<"/">> = Specific
+  const handler = {} as typeof import("../../../src/app/layout.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+ 
+---- 
+.
+import { authClient } from "@/src/libs/authclient";
+import { LoginInterface } from "../../model/types/login.type";
+
+export async function LoginEmailApi(accountData: LoginInterface){
+
+    const {email, password} = accountData;
+
+    const { data, error }= await authClient.signIn.email(
+        {email, password},
+        {
+            onRequest: () => {
+                
+            },
+            onSuccess: async (ctx) => {
+                window.location.href = `${process.env.NEXT_PUBLIC_CALLBACK_URL}/dashboard`
+            },
+            onError: (ctx) => {
+                alert(ctx.error.message);
+            }
+        }
+    );
+}
+
+export async function LoginGoogleApi(){
+    await authClient.signIn.social({
+        provider: "google",
+        callbackURL: `${process.env.NEXT_PUBLIC_CALLBACK_URL}/dashboard`
+    }
+);
+}
+
+
+
+ 
+---- 
+.
+import { authClient } from "@/src/libs/authclient";
+import { SignUpInterface } from "../../model/types/signup.type";
+
+export default async function SignUpEmailApi(accountData: SignUpInterface){
+    const { name, email, password } = accountData;
+
+    const { data, error } = await authClient.signUp.email({
+        name: name,
+        email: email,
+        password: password,
+        callbackURL: `${process.env.NEXT_PUBLIC_CALLBACK_URL}/dashboard`
+    })
+
+    if(error){
+        alert(error.message);
+        return false;
+    } else {
+        console.log("Sign up successfully: \nData: ", data.user);
+        return true;
+    }
+} 
+---- 
+.
+"use client";
+
+import { Data } from "../../model/types/data.type";
+
+export default async function getDashboard(userId: string): Promise<Data> {
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cleanquest/character/profile/${userId}/view-stats`, {
+        method: "GET",
+        credentials: "include"
+    })
+
+    if(!response.ok){
+        throw new Error("Failed to fetch quests");
+    }
+
+    const data = await response.json();
+
+    return data;
+}
+ 
+---- 
+.
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
+
+const jetBrains = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap"
+})
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Clean Quest",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode; }>) {
+  return (
+    <html lang="en" className={`${jetBrains.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col text-white">
+          {children}
+        </body>
+    </html>
+  );
+}
+ 
+---- 
+.
+export default function Loading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-gray-200 bg-black/80">
+      <div className="animate-spin h-16 w-16 border-4 border-t-transparent border-white rounded-full mb-4"></div>
+      <p className="text-lg">Loading please wait...</p>
+    </div>
+  );
+} 
+---- 
+.
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import LoginForm from "@/src/components/auth/LoginForm";
+
+export default function Login(){
+
+    const router = useRouter();
+
+    return <>
+        <main className="min-h-screen w-full bg-[url('/backgrounds/clean-quest-background-homepage.png')] bg-cover bg-center">
+
+            <div className="absolute inset-0 backdrop-brightness-50 bg-black/10"></div>
+
+            <section className="flex flex-col items-center justify-center" >
+                
+                <Image alt="cleanquest-logo" src={"/logo/cleanquest-logo.png"} width={1000} height={20} 
+                   onClick={() => router.push("/home")} className="relative z-10 w-[300px] h-auto m-0 p-0"/>
+
+                <LoginForm />
+                
+            </section>
+        </main>
+    </>
+}    
+---- 
+.
+export default function Loading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-gray-200 bg-black/80">
+      <div className="animate-spin h-16 w-16 border-4 border-t-transparent border-white rounded-full mb-4"></div>
+      <p className="text-lg">Loading please wait...</p>
+    </div>
+  );
+} 
+---- 
+.
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import SignUpForm from "@/src/components/auth/SignUpForm";
+
+export default function SignUp(){
+
+    const router = useRouter();
+
+    return <>
+        <main className="min-h-screen w-full bg-[url('/backgrounds/clean-quest-background-homepage.png')] bg-cover bg-center">
+
+            <div className="absolute inset-0 backdrop-brightness-50 bg-black/10"></div>
+
+            <section className="flex flex-col items-center justify-center" >
+                
+                <Image alt="cleanquest-logo" src={"/logo/cleanquest-logo.png"} width={1000} height={20} 
+                   onClick={() => router.push("/home")} className="relative z-10 w-[300px] h-auto m-0 p-0"/>
+
+                <SignUpForm />
+                
+            </section>
+        </main>
+    </>
+}    
+---- 
+.
+export default function Loading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-gray-200 bg-black/80">
+      <div className="animate-spin h-16 w-16 border-4 border-t-transparent border-white rounded-full mb-4"></div>
+      <p className="text-lg">Loading please wait...</p>
+    </div>
+  );
+} 
+---- 
+.
+"use client";
+
+import { useState, useEffect } from "react";
+
+import getDashboard from "@/src/api/data/dashboard.api";
+
+import { Data } from "@/src/model/types/data.type";
+
+import { authClient } from "@/src/libs/authclient";
+import StatsBadge from "@/src/components/ui/statsbadge";
+import PlayerLevel from "@/src/components/ui/playerlevel";
+import QuestsCards from "@/src/components/common/cards/quests";
+import StatsCards from "@/src/components/common/cards/playerstats";
+import ImportantCards from "@/src/components/common/cards/important";
+import Loading from "@/src/components/layouts/loading";
+
+export default function Dashboard(){
+
+    const [data, setData] = useState<Data>();
+    const [loading, setLoading] = useState(true);
+    const user = authClient.useSession();
+    const userId = user.data?.session.id;
+
+    useEffect(() => {
+
+        if(!userId) return;
+
+        async function fetchData() {
+            await getDashboard(userId!).then(setData);
+            setLoading(false);
+        }
+        fetchData();
+    }, [userId])
+
+    if(loading){
+        return <Loading />;
+    }
+
+    if(data?.totalCompletion === undefined){
+        return <div>Error!</div>
+    }
+
+    return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard-v2.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full
+        has-[.living-room:hover]:bg-[url('/backgrounds/dashboard-background-living-room-v2.png')] 
+        has-[.bedroom:hover]:bg-[url('/backgrounds/dashboard-background-room.png')]
+        has-[.kitchen:hover]:bg-[url('/backgrounds/dashboard-background-kitchen.png')]">
+        <section>
+            <div className="flex flex-row p-4 items-center gap-2">
+
+                <PlayerLevel ign={data?.data.ingameName} level={data?.data.level} exp={data?.data.experience} />
+
+                <StatsBadge icon="/icons/growth-power.png" alt="growth-power" value={data?.data.growth} />
+                <StatsBadge icon="/icons/completed-task-v2.png" alt="completed-task" value={data?.data.completedTask} />
+
+            </div>
+        </section>
+
+        <section>
+            <div className="absolute z-100 left-20 top-90 living-room cursor-pointer w-[230px] h-[230px]"></div>
+            <div className="absolute z-100 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]"></div>
+            <div className="absolute z-100 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"></div>
+        </section>
+
+        <section>
+            <QuestsCards totalCompletion={data?.totalCompletion}/>
+            <ImportantCards completedTask={data?.completedTask} importantTask={data?.importantTask}/>
+            <StatsCards />
+        </section>
+
+
+    </main>
+}
+ 
+---- 
+.
+export default function Loading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-gray-200 bg-black/80">
+      <div className="animate-spin h-16 w-16 border-4 border-t-transparent border-white rounded-full mb-4"></div>
+      <p className="text-lg">Loading please wait...</p>
+    </div>
+  );
+} 
+---- 
+.
+"use client";
+
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+export default function Home() {
+
+  const router = useRouter();
+
+  return (
+    <main>
+        <section  className="min-h-screen w-full bg-[url('/backgrounds/clean-quest-background-homepage.png')] bg-cover bg-center bg-no-repeat">
+            <div className="flex items-center justify-center">
+
+                <div>
+                  <Image alt="game-logo" src="/logo/cleanquest-logo.png" 
+                      width={1000} height={10} className="absolute left-[7px] w-[100px] h-auto" loading="eager"/>
+                  
+                  <div>
+                    <Image alt="gift-icon" src="/icons/gift-code.png" 
+                      width={1000} height={10} className="absolute top-[7px] right-[60px] w-[70px] h-auto z-10" loading="eager"/>
+
+                    <input placeholder="Redeem Code" 
+                      className="absolute top-5  right-0 z-1 p-0 m-0 w-[95px] py-1 h-[20px] text-[8px] text-center
+                        bg-[rgba(255,223,72,0.8)] rounded-lg font-extrabold border-1 border-b-2 border-r-2 border-blue-800" />
+                  </div>
+                  
+                </div>
+
+                <Image alt="login-title" src="/text/login-page-title-final1.png" 
+                    width={1000} height={100} className="absolute top-[300px] w-[500px] h-auto" loading="eager"/>
+
+                
+                <Image alt="play-now" src="/icons/button-play-now.png" onClick={() => router.push("/login")}
+                    width={1000} height={100} className="absolute top-[480px] w-[200px] h-auto active:scale-95 transition-transform duration-150 z-20" 
+                    loading="eager"/>
+                
+            </div>
+        </section>
+    </main>
+  );
+} 
+---- 
+.
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+
+import { LoginInterface } from "@/src/model/types/login.type";
+
+import Label from "../ui/label";
+import Input from "../ui/input";
+import Button from "../ui/button";
+
+import { LoginGoogleApi } from "@/src/api/auth/login.api";
+import { LoginEmailApi } from "@/src/api/auth/login.api";
+
+export default function LoginForm(){
+
+    const router = useRouter();
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    const accountData: LoginInterface = { email: email, password: password }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await LoginEmailApi(accountData);
+    }
+
+    return <form onSubmit={handleSubmit}>
+        <div className="relative flex flex-col items-center justify-center text-white space-y-3">
+
+            <Label htmlFor="email" className="self-start" label="Email Address" />
+            <Input id="email" name="email" placeholder="Enter account email" type="email"
+                   onChange={(e) => setEmail(e.target.value)} className="w-[300px] h-auto border-2 border-white px-3 py-1" />
+
+            <Label htmlFor="password" className="self-start" label="Account Password"/>
+            <Input id="password" name="password" placeholder="Enter account password" type="password"
+                    onChange={(e) => setPassword(e.target.value)}   className="w-[300px] h-auto border-2 border-white px-3 py-1"/>
+            
+            <Button onClick={() => console.log("Login submit")} className="text-white active:scale-50 transform-transition duration-260 px-6 py-1 rounded-xl bg-[rgba(255,250,67,0.8)]" label="Login"/>
+
+            <label onClick={() =>  router.push("/sign-up")} className="relative top-[40px] text-white active:scale-50 transform-transition duration-260 border-b-1">Sign-Up</label>
+            
+            <FcGoogle onClick={LoginGoogleApi} className="relative top-[70px] w-[30px] h-auto active:scale-50 transform-transition duration-260"/>
+            
+        </div>
+    </form>
+}
+ 
+---- 
+.
+"use client";
+
+import { SignUpInterface } from "@/src/model/types/signup.type";
+
+import SignUpEmailApi from "@/src/api/auth/signup.api";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+import Label from "../ui/label";
+import Input from "../ui/input";
+import Button from "../ui/button";
+
+export default function SignUpForm(){
+
+    const router = useRouter();
+
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const accountData: SignUpInterface = { name: name, email: email, password: password }
+        
+        const redirect = await SignUpEmailApi(accountData);
+
+        if(redirect){
+            router.push("/login");
+        }
+    }
+
+    return <form onSubmit={handleSubmit}>
+        <div className="relative flex flex-col items-center justify-center text-white space-y-3">
+
+            <Label htmlFor="name" className="self-start" label="Accout Name" />
+            <Input id="name" name="name" placeholder="Enter account name" type="text"
+                   onChange={(e) => setName(e.target.value)} className="w-[300px] h-auto border-2 border-white px-3 py-1" />
+
+            <Label htmlFor="email" className="self-start" label="Email Address" />
+            <Input id="email" name="email" placeholder="Enter account email" type="email"
+                   onChange={(e) => setEmail(e.target.value)} className="w-[300px] h-auto border-2 border-white px-3 py-1" />
+
+            <Label htmlFor="password" className="self-start" label="Account Password"/>
+            <Input id="password" name="password" placeholder="Enter account password" type="password"
+                    onChange={(e) => setPassword(e.target.value)}   className="w-[300px] h-auto border-2 border-white px-3 py-1"/>
+            
+            <Button onClick={() => console.log("Sign up successfully")} className="text-white active:scale-50 transform-transition duration-260 px-6 py-1 rounded-xl bg-[rgba(255,250,67,0.8)]" label="Sign Up"/>
+
+            <label onClick={() => router.push("/login")} className="absolute top-[300px] text-white active:scale-50 transform-transition duration-260 border-b-1">Login Account</label>
+            
+        </div>
+    </form>
+} 
+---- 
+.
+import Image from "next/image"
+import type { CompletedTaskList, ImportantTaskList } from "@/src/model/types/important-task.type";
+
+type MyProps = {
+    completedTask: CompletedTaskList, 
+    importantTask: ImportantTaskList
+}
+
+export default function ImportantCards(props: MyProps){
+
+    const { completedTask, importantTask } = props;
+
+    if(!completedTask || !importantTask){
+        return <div>Error the data is undefined!</div>
+    }
+
+    return <>
+        <div className="relative">
+            <Image
+                src="/icons/quest-progress-v2.png"
+                alt="important-progress"
+                width={500}
+                height={500}
+                className="relative top-[15px] left-3 z-50 w-[108px] h-[120px]"
+                loading="eager"
+            />
+            <div className="absolute rounded-lg left-5 top-5 bg-black/50 w-[90px] h-[110px] p-2">
+                    <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] mb-1">IMPORTANT TASKS</h1>
+                    <div>
+                        <ul>
+                            {importantTask.map((task, i) => (
+                                <li className="text-[5px]" key={task.id}>
+                                    <p className="grid grid-cols-[1fr_60px_40px] items-center">
+                                        <span className={`inline-block w-4 h-4 bg-cover bg-center
+                                            ${ completedTask[i].success
+                                                ? 
+                                            "bg-[url('/icons/square-check-v2.png')]" : "bg-[url('/icons/square-v2.png')]"}`} />
+                                        <span>{task.title}</span>
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </>
+}
+
+// 
+---- 
+.
+import Image from "next/image"
+
+export default function StatsCards(){
+
+    const arrayOfTask = [{src: "/icons/strength.png", name: "Strength", percentage: "50%"}, 
+                        {src: "/icons/armor-v2.png", name: "Armor", percentage: "50%"}, 
+                        {src: "/icons/ability-v2.png", name: "Ability Power", percentage: "50%"}, 
+                        {src: "/icons/clean.png", name: "Cleanliness", percentage: "50%"},
+                    ]
+
+    return <>
+
+        <div className="relative ">
+            <Image
+                src="/icons/quest-progress-v2.png"
+                alt="player-stats"
+                width={500}
+                height={500}
+                className="relative z-50 top-[15px] left-3 w-[108px] h-[100px]"
+                loading="eager"
+            />
+            <div className="absolute rounded-lg left-5 top-5 bg-black/50 w-[90px] h-[90px] p-2">
+                    <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] mb-1">PLAYER STATS</h1>
+                    <div>
+                        <ul>
+                            {arrayOfTask.map((power, i) => (
+                                <li className="text-[5px]" key={i}>
+                                    <p className="grid grid-cols-[1fr_50px_40px] items-center">
+                                        <span className={`inline-block w-4 h-4 bg-cover bg-center`} style={{backgroundImage: `url('${power.src}')`}} />
+                                        <span className="ml-1">{power.name}</span>
+                                        <span>{power.percentage}</span>
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </>
+} 
+---- 
+.
+import Image from "next/image"
+
+import type { TotalCompletion } from "@/src/model/types/important-task.type"
+
+type MyProps = {
+    totalCompletion: TotalCompletion
+}
+
+export default function QuestsCards(props: MyProps){
+
+    if(props.totalCompletion === undefined){
+        return <div>Error!</div>
+    }
+
+    return <>
+            <Image src="/icons/quest-progress-v2.png" alt="quest-progress" width={500} height={500} 
+            className="absolute z-50 left-3 w-[113px] h-[100px]"/>
+            <div className="relative rounded-lg left-5 bg-black/50 top-1 w-[95px] h-[92px] p-2">
+
+                <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] mb-1">QUEST PROGRESS</h1>
+                <div>
+                    <ul className="space-y-1.5">
+                        <li className="text-[5px]">
+                            <p className="grid grid-cols-[1fr_60px_40px] items-center">
+                                <span className="inline-block w-3 h-3 bg-[url('/icons/daily-quest.png')] bg-cover bg-center" />
+                                <span>Bedroom Quests</span>
+                                <span>{props.totalCompletion.bedroom.completed}/{props.totalCompletion.bedroom.total}</span>
+                            </p>
+                        </li>
+                        <li className="text-[5px]">
+                            <p className="grid grid-cols-[1fr_60px_40px] items-center">
+                                <span className="inline-block w-3 h-3 bg-[url('/icons/weekly-quests.png')] bg-cover bg-center" />
+                                <span>Kitchen Quests</span>
+                                <span>{props.totalCompletion.kitchen.completed}/{props.totalCompletion.kitchen.total}</span>
+                            </p>
+                        </li>
+                         <li className="text-[5px]">
+                            <p className="grid grid-cols-[1fr_60px_40px] items-center">
+                                <span className="inline-block w-3 h-3 bg-[url('/icons/main-quests.png')] bg-cover bg-center" />
+                                <span>Living Room Quests</span>
+                                <span>{props.totalCompletion.living_room.completed}/{props.totalCompletion.living_room.total}</span>
+                            </p>
+                        </li>
+                        <li className="text-[5px]">
+                            <p className="grid grid-cols-[1fr_60px_40px] items-center">
+                                <span className="inline-block w-3 h-3 bg-[url('/icons/achievements.png')] bg-cover bg-center" />
+                                <span>Achievements</span>
+                                <span>2/70</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </>
+} 
+---- 
+.
+
+// All generated by AI, just ask for help to create a UI for me that is not that important
+export default function Loading(){
+    return (
+            <div className="relative min-h-screen overflow-hidden bg-[#090707] flex items-center justify-center">
+
+            {/* Ambient background glow */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/5 blur-[120px]" />
+
+                <div className="absolute left-0 top-1/3 h-40 w-40 rounded-full bg-purple-500/5 blur-[100px]" />
+
+                <div className="absolute right-0 bottom-1/3 h-40 w-40 rounded-full bg-blue-500/5 blur-[100px]" />
+            </div>
+
+            {/* Main HUD container */}
+            <div className="relative z-10 flex w-[90%] max-w-[480px] flex-col items-center">
+
+                {/* Top decorative HUD lines */}
+                <div className="mb-8 flex w-full items-center gap-3">
+                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-orange-500/60 to-orange-400" />
+
+                <div className="h-2 w-2 rotate-45 border border-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.8)]" />
+
+                <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-orange-500/60 to-orange-400" />
+                </div>
+
+
+                {/* Loading ring */}
+                <div className="relative mb-10 h-32 w-32">
+
+                {/* Outer glow */}
+                <div className="absolute inset-0 rounded-full bg-orange-500/10 blur-2xl" />
+
+                {/* Outer ring */}
+                <div className="absolute inset-0 rounded-full border border-orange-500/20" />
+
+                {/* Rotating orange ring */}
+                <div
+                    className="
+                    absolute inset-1
+                    animate-spin
+                    rounded-full
+                    border-[3px]
+                    border-transparent
+                    border-t-orange-400
+                    border-r-orange-500
+                    shadow-[0_0_18px_rgba(249,115,22,0.6)]
+                    "
+                />
+
+                {/* Blue accent ring */}
+                <div
+                    className="
+                    absolute inset-3
+                    rounded-full
+                    border-2
+                    border-transparent
+                    border-b-blue-400
+                    animate-[spin_3s_linear_infinite_reverse]
+                    opacity-80
+                    shadow-[0_0_12px_rgba(96,165,250,0.5)]
+                    "
+                />
+
+                {/* Inner circle */}
+                <div className="absolute inset-7 flex items-center justify-center rounded-full border border-orange-400/30 bg-black/50 backdrop-blur-sm">
+
+                    {/* Clean Quest style emblem */}
+                    <div className="relative h-7 w-7 rotate-45 border border-orange-300 shadow-[0_0_15px_rgba(251,146,60,0.7)]">
+                    <div className="absolute inset-1 border border-orange-400/50" />
+                    </div>
+
+                </div>
+
+                {/* Small HUD ticks */}
+                <span className="absolute left-1/2 -top-3 h-2 w-[2px] -translate-x-1/2 bg-orange-400" />
+                <span className="absolute left-1/2 -bottom-3 h-2 w-[2px] -translate-x-1/2 bg-orange-400" />
+                <span className="absolute -left-3 top-1/2 h-[2px] w-2 -translate-y-1/2 bg-blue-400" />
+                <span className="absolute -right-3 top-1/2 h-[2px] w-2 -translate-y-1/2 bg-purple-400" />
+
+                </div>
+
+
+                {/* Loading information panel */}
+                <div
+                className="
+                    relative w-full
+                    border border-orange-400/40
+                    bg-black/60
+                    px-6 py-5
+                    backdrop-blur-md
+                    shadow-[0_0_30px_rgba(249,115,22,0.08)]
+                "
+                >
+
+                {/* Angular corners */}
+                <div className="absolute -left-[1px] -top-[1px] h-4 w-4 border-l-2 border-t-2 border-orange-400" />
+                <div className="absolute -right-[1px] -top-[1px] h-4 w-4 border-r-2 border-t-2 border-orange-400" />
+                <div className="absolute -left-[1px] -bottom-[1px] h-4 w-4 border-l-2 border-b-2 border-orange-400" />
+                <div className="absolute -right-[1px] -bottom-[1px] h-4 w-4 border-r-2 border-b-2 border-orange-400" />
+
+                {/* Header */}
+                <div className="mb-4 flex items-center justify-between">
+
+                    <div>
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-orange-400/70">
+                        Clean Quest
+                    </p>
+
+                    <h2 className="mt-1 text-lg font-semibold tracking-widest text-orange-100">
+                        LOADING
+                    </h2>
+                    </div>
+
+                    <div className="text-[10px] tracking-widest text-orange-400/60">
+                    SYSTEM
+                    </div>
+
+                </div>
+
+
+                {/* Progress bar */}
+                <div className="relative h-2 overflow-hidden border border-orange-400/30 bg-black/70">
+
+                    <div
+                    className="
+                        h-full w-[65%]
+                        bg-gradient-to-r
+                        from-orange-600
+                        via-orange-400
+                        to-yellow-200
+                        shadow-[0_0_12px_rgba(251,146,60,0.9)]
+                        animate-pulse
+                    "
+                    />
+
+                </div>
+
+
+                {/* Status */}
+                <div className="mt-4 flex items-center justify-between">
+
+                    <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,1)]" />
+
+                    <span className="text-xs tracking-wider text-gray-300">
+                        Loading please wait...
+                    </span>
+                    </div>
+
+                    <span className="text-xs font-mono text-orange-400">
+                    65%
+                    </span>
+
+                </div>
+
+                </div>
+
+
+                {/* Bottom HUD details */}
+                <div className="mt-5 flex w-full items-center justify-between text-[9px] uppercase tracking-[0.25em] text-gray-600">
+
+                <span>Preparing Quest</span>
+
+                <div className="flex gap-1">
+                    <span className="h-1 w-4 bg-orange-500/50" />
+                    <span className="h-1 w-4 bg-orange-500/30" />
+                    <span className="h-1 w-4 bg-orange-500/20" />
+                </div>
+
+                <span>01 // 04</span>
+
+                </div>
+
+            </div>
+            </div>
+        );
+} 
+---- 
+.
+type MyComponent = {
+    onClick?: () => void;
+    className?: string;
+    label: string;
+}
+
+export default function Button(props: MyComponent){
+    return <>
+            <button onClick={props.onClick} type="submit" className={props.className} >{props.label}</button>
+    </>
+} 
+---- 
+.
+type MyProps = {
+    id: string,
+    name: string,
+    placeholder: string,
+    type: string,
+    className?: string,
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}
+
+export default function Input(props: MyProps){
+    return <>
+        <input id={props.id} name={props.name} placeholder={props.placeholder} type={props.type}
+             onChange={props.onChange}   className={props.className} />
+    </>
+} 
+---- 
+.
+type MyProps = {
+    htmlFor: string,
+    className?: string,
+    label: string
+}
+
+export default function Label(props: MyProps){
+    return <>
+        <label htmlFor={props.htmlFor} className={props.className}>{props.label}</label>
+    </>
+} 
+---- 
+.
+import Image from "next/image"
+
+type MyProps = {
+    ign?: string,
+    level?: number,
+    exp?:number
+}
+
+export default function PlayerLevel(props: MyProps){
+    return <div className="flex p-1 items-center bg-[url('/icons/level-v2.png')] bg-cover bg-center w-[133px] h-[60px]">
+                <Image src="/icons/level-v1.png" alt="level-icon" width={1000} height={1000} className="relative w-[37px] h-[43px]"/> 
+                <div className="p-2">
+                    <h1 className="text-[8px] font-semibold mb-1">{props.ign}</h1>
+                    <h1 className="text-[6px] font-semibold text-[rgba(210,157,6,0.8)]">Level <span className="text-white">{props.level}</span></h1>
+                    <div className="relative z-0 w-[70px] h-[5px] border rounded-full overflow-hidden">
+                        <div className="absolute inset-y-0 h-full bg-gradient-to-r rounded-full from-yellow-700 to-orange-200
+                            transition-all duration-700 ease-out" style={{ width: `${props.exp}%`}}></div>
+                    </div>
+                    <h1 className="text-[6px] text-[rgba(154,154,154,0.8)]">{props.exp}/100  EXP</h1>
+                </div>
+            </div>
+} 
+---- 
+.
+import Image from "next/image"
+
+type MyProps = {
+    icon: string,
+    alt: string,
+    value?: number
+}
+
+export default function StatsBadge(props: MyProps){
+    return <>
+        <Image src={props.icon} alt={props.alt} width={1000} height={1000}
+            className="relative left-3 z-10 w-[15px] h-auto" />
+        <div className="flex justify-center items-center p-2 -ml-4 left-0 z-0 text-[6px] w-[64px] h-[14px] bg-[url('/icons/stats-border.png')] bg-cover bg-center">
+                {props.value}
+        </div>
+    </>
+}
+ 
+---- 
+.
+import { createAuthClient } from "better-auth/react";
+
+export const authClient = createAuthClient({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL
+}) 
+---- 
+.
+export type Data = {
+    message: string,
+    success: boolean,
+    data: {
+        id: string,
+        userId: string,
+        ingameName: string,
+        level: number,
+        experience: number,
+        health: number,
+        attack: number,
+        critical: number,
+        speed: number,
+        defense: number,
+        evasion: number,
+        resistance: number,
+        luck: number,
+        stamina: number,
+        growth: number,
+        completedTask: number
+    },
+    importantTask: [
+        {
+            id: string,
+            title: string
+        }
+    ],
+    completedTask: [
+        {
+            title: string,
+            success: boolean
+        }
+    ],
+    totalCompletion: 
+        {
+            kitchen: {
+                total: number,
+                completed: number
+            },
+            bedroom: {
+                total: number,
+                completed: number
+            },
+            living_room: {
+                total: number,
+                completed: number
+            },
+        }
+    
+} 
+---- 
+.
+type ImportantTask = {
+    id: string,
+    title: string
+}
+
+type CompletedTask = {
+    title: string,
+    success: boolean
+}
+
+export type TotalCompletion = {
+    kitchen: {
+        total: number,
+        completed: number
+    },
+    bedroom: {
+        total: number,
+        completed: number
+    },
+    living_room: {
+        total: number,
+        completed: number
+    },
+}
+
+export type ImportantTaskList = ImportantTask[] | undefined;
+export type CompletedTaskList = CompletedTask[] | undefined; 
+---- 
+.
+export type LoginInterface = {
+    email: string,
+    password: string
+} 
+---- 
+.
+export type SignUpInterface = {
+    name: string,
+    email: string,
+    password: string
+} 
+---- 
+.
