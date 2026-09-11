@@ -1,5 +1,5 @@
 export default async function CompletedQuest(questId: string, image: Base64URLString){
-    const response = await fetch("http://localhost:5000/cleanquest/quest/completed-quest", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cleanquest/quest/completed-quest`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
