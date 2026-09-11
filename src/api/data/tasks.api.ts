@@ -4,7 +4,7 @@ import { Tasks } from "@/src/model/types/tasks.type";
 
 export default async function GetAvailableTask(place: string): Promise<Tasks>{
 
-    const response = await fetch(`http://localhost:5000/cleanquest/quest/available-task/${place}`,
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cleanquest/quest/available-task/${place}`,
         {
             method: "GET",
             credentials: "include"
