@@ -2,7 +2,7 @@
 
 import { Data } from "../../model/types/data.type";
 
-export default async function getDashboard(userId: string): Promise<Data> {
+export default async function GetDashboard(userId: string): Promise<Data> {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cleanquest/character/profile/${userId}/view-stats`, {
         method: "GET",

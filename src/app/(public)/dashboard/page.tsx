@@ -8,18 +8,36 @@ import StatsCards from "@/src/components/common/cards/playerstats";
 import ImportantCards from "@/src/components/common/cards/important";
 import Loading from "@/src/components/layouts/loading";
 import { useStatsBadgeContext } from "@/src/context/StatsBadgeContext";
+import { useTasksContext } from "@/src/context/TasksContext";
 
 export default function Dashboard(){
+
     const router = useRouter();
+    const { fetchData, loading: taskLoading } = useTasksContext();
+    const {data, loading: statsLoading} = useStatsBadgeContext();
 
-    const {data, loading} = useStatsBadgeContext();
-
-    if(loading){
+    if(taskLoading || statsLoading){
         return <Loading />;
     }
     
     if(data?.totalCompletion === undefined){
         return <div>Error!</div>
+    }
+
+    const handleKitchenClicked = async () => {
+        await fetchData("kitchen");
+        router.push("/kitchen");
+    }
+
+        
+    const handleBedroomClicked = async () => {
+        await fetchData("bedroom");
+        router.push("/bedroom");
+    }
+
+    const handleLivingRoomClicked = async () => {
+        await fetchData("living_room");
+        router.push("/living-room");
     }
 
     return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard-v2.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full
@@ -38,10 +56,12 @@ export default function Dashboard(){
         </section>
 
         <section>
-            <div className="absolute z-100 left-20 top-90 living-room cursor-pointer w-[230px] h-[230px]"></div>
+            <div className="absolute z-100 left-20 top-90 living-room cursor-pointer w-[230px] h-[230px]"
+                onClick={ handleLivingRoomClicked }></div>
             <div className="absolute z-100 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]" 
-                onClick={() => router.push("/bedroom")}></div>
-            <div className="absolute z-100 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"></div>
+                onClick={ handleBedroomClicked }></div>
+            <div className="absolute z-100 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"
+                onClick={ handleKitchenClicked }></div>
         </section>
 
         <section>

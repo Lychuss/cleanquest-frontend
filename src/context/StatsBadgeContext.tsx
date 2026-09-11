@@ -7,7 +7,7 @@ import { StatsBadgeType } from "../model/types/statsbadge.type";
 
 import { authClient } from "../libs/authclient";
 
-import getDashboard from "../api/data/dashboard.api";
+import GetDashboard from "../api/data/dashboard.api";
 
 export const StatsBadgeContext = createContext<StatsBadgeType | undefined>(undefined);
 
@@ -24,7 +24,7 @@ export function StatsBadgeProvider({ children }: {children: ReactNode}){
         if(!userId) return;
 
         async function fetchData() {
-            await getDashboard(userId!).then(setData);
+            await GetDashboard(userId!).then(setData);
             setLoading(false);
         }
         fetchData();
