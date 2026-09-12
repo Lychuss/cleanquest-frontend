@@ -15,22 +15,22 @@ export default function ImportantCards(props: MyProps){
     }
 
     return <>
-        <div className="relative">
+        <div className="relative xl:top-[30px]">
             <Image
                 src="/icons/quest-progress-v2.png"
                 alt="important-progress"
                 width={500}
                 height={500}
-                className="relative top-[15px] left-3 z-50 w-[108px] h-[120px]"
+                className="relative top-[15px] left-3 z-50 xl:w-[160px] xl:h-[160px] w-[115px] h-[125px]"
                 loading="eager"
             />
-            <div className="absolute rounded-lg left-5 top-5 bg-black/50 w-[90px] h-[110px] p-2">
-                    <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] mb-1">IMPORTANT TASKS</h1>
+            <div className="absolute rounded-lg left-[22px] top-[21px] bg-black/50 w-[95px] h-[115px] xl:w-[135px] xl:h-[150px] p-2">
+                    <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] xl:text-[10px] mb-1 ml-2">IMPORTANT TASKS</h1>
                     <div>
                         <ul>
                             {importantTask.map((task, i) => (
-                                <li className="text-[5px]" key={task.id}>
-                                    <p className="grid grid-cols-[1fr_60px_40px] items-center">
+                                <li className="xl:text-[9px] text-[5px]" key={task.id}>
+                                    <p className="grid grid-cols-[1fr_60px_40px] xl:grid-cols-[0.5fr_100px_10px] items-center xl:mb-2">
                                         <span className={`inline-block w-4 h-4 bg-cover bg-center
                                             ${ completedTask[i].success
                                                 ? 

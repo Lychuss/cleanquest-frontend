@@ -30,13 +30,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en" className={`${jetBrains.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col text-white">
+      <body className="mx-auto min-h-screen max-w-md bg-white shadow-2xl">
           <StatsBadgeProvider>
             <TasksProvider>
               {children}
             </TasksProvider>
           </StatsBadgeProvider>
-        </body>
+      </body>
     </html>
   );
 }

@@ -61,11 +61,13 @@ export default function Dashboard(){
         </section>
 
         <section>
-            <div className="absolute z-100 left-20 top-90 living-room cursor-pointer w-[230px] h-[230px]"
+            <div className="absolute z-100 left-40 xl:left-[750px] top-[350px] xl:top-[400px] living-room cursor-pointer w-[150px] xl:w-[200px]
+                 h-[230px]"
                 onClick={ handleLivingRoomClicked }></div>
-            <div className="absolute z-100 left-20 bottom-70 bedroom cursor-pointer w-[100px] h-[230px]" 
+            <div className="absolute z-100 left-30 xl:left-[700px] bottom-70 xl:top-[100px] bedroom cursor-pointer w-[50px] xl:w-[70px]
+                h-[230px]" 
                 onClick={ handleBedroomClicked }></div>
-            <div className="absolute z-100 right-0 bottom-80 kitchen cursor-pointer w-[100px] h-[180px]"
+            <div className="absolute z-100 right-1 xl:right-[570px] bottom-80 xl:top-[150px] kitchen cursor-pointer w-[100px] h-[130px] xl:h-[180px]"
                 onClick={ handleKitchenClicked }></div>
         </section>
 
