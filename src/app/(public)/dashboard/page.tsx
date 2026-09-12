@@ -9,12 +9,17 @@ import ImportantCards from "@/src/components/common/cards/important";
 import Loading from "@/src/components/layouts/loading";
 import { useStatsBadgeContext } from "@/src/context/StatsBadgeContext";
 import { useTasksContext } from "@/src/context/TasksContext";
+import { useEffect } from "react";
 
 export default function Dashboard(){
 
     const router = useRouter();
-    const { fetchData, loading: taskLoading } = useTasksContext();
-    const {data, loading: statsLoading} = useStatsBadgeContext();
+    const { fetchData: fetchTask, loading: taskLoading } = useTasksContext();
+    const {data, loading: statsLoading, fetchData: fetchStats} = useStatsBadgeContext();
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
 
     if(taskLoading || statsLoading){
         return <Loading />;
@@ -25,19 +30,19 @@ export default function Dashboard(){
     }
 
     const handleKitchenClicked = async () => {
-        await fetchData("kitchen");
-        router.push("/kitchen");
+        await fetchTask("kitchen");
+        router.push("room/kitchen");
     }
 
         
     const handleBedroomClicked = async () => {
-        await fetchData("bedroom");
-        router.push("/bedroom");
+        await fetchTask("bedroom");
+        router.push("room/bedroom");
     }
 
     const handleLivingRoomClicked = async () => {
-        await fetchData("living_room");
-        router.push("/living-room");
+        await fetchTask("living_room");
+        router.push("room/living_room");
     }
 
     return <main className="bg-[url('/backgrounds/clean-quest-background-dashboard-v2.png')] bg-no-repeat bg-cover bg-center min-h-screen w-full

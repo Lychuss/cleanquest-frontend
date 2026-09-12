@@ -7,21 +7,39 @@ import { useStatsBadgeContext } from "@/src/context/StatsBadgeContext";
 import { useTasksContext } from "@/src/context/TasksContext";
 import { useEffect, useState} from "react";
 import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
-export default function Bedroom(){
+export default function Room(){
+    const params = useParams();
     const router = useRouter();
+    const roomTitle = params.roomTitle as string;
+
     const { data: statsData , loading: statsLoading } = useStatsBadgeContext();
     const { data: tasksData, loading: tasksLoading, fetchData } = useTasksContext();
 
+    const backgroundImage = () => {
+        switch (roomTitle){
+            case "bedroom":
+                return '/backgrounds/bedroom-background.png';
+            case "kitchen":
+                return '/backgrounds/kitchen-background.png';
+            case "living_room":
+                return '/backgrounds/living-room-background.png';
+            default:
+                router.push("dashboard");
+        }
+    }
+
     useEffect(() => {
-        fetchData("bedroom");
+        fetchData(`${roomTitle}`);
     }, [])
 
     if(statsLoading || tasksLoading){
         return <Loading />;
     }
 
-    return <main className="bg-[url('/backgrounds/bedroom-background.png')] bg-cover bg-center min-h-screen w-full">
+    return <main className="bg-cover bg-center min-h-screen w-full"
+            style={{ backgroundImage: `url(${backgroundImage()})`}}>
 
         <section className="flex items-center gap-2 p-4">
             <PlayerLevel ign={statsData?.data.ingameName} level={statsData?.data.level} exp={statsData?.data.experience} />
@@ -32,15 +50,15 @@ export default function Bedroom(){
         <section className="p-4">
             <div className="relative top-40 grid grid-cols-[1fr_70px_50px] items-center justify-center">
                 <div className="">
-                    <h1 className="font-bold text-[rgba(210,157,6,0.8)]">BEDROOM</h1>
+                    <h1 className="font-bold text-[rgba(210,157,6,0.8)]">{roomTitle.toUpperCase().replace("_", " ")}</h1>
                     <p className="text-[7px]">Complete task and Level Up!</p>
                 </div>
                 <div className="border bg-black/50 rounded-lg w-[120px] p-2 text-[rgba(210,157,6,0.8)]">
                     <h1 className="text-[6px]">ROOM PROGRESS</h1>
-                    <p className="text-[6px]">0%</p>
+                    <p className="text-[6px]">{Math.round((tasksData?.completedTask.data! / tasksData?.completedTask.totalQuest!) * 100)}%</p>
                     <div className="relative z-0 w-[100px] h-[5px] border rounded-full overflow-hidden">
                         <div className="absolute inset-y-0 h-full bg-gradient-to-r rounded-full from-yellow-700 to-orange-200
-                            transition-all duration-700 ease-out" style={{ width: '50%'}}></div>
+                            transition-all duration-700 ease-out" style={{ width: `${(tasksData?.completedTask.data! / tasksData?.completedTask.totalQuest!) * 100}%`}}></div>
                     </div>
                     <p className="text-[4px] mt-1">{tasksData?.completedTask.data}/{tasksData?.completedTask.totalQuest} TASKS COMPLETED</p>
                 </div>
