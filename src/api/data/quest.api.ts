@@ -1,13 +1,14 @@
 export default async function CompletedQuest(questId: string, image: Base64URLString){
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cleanquest/quest/completed-quest`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cleanquest/quest/completed-quest`, 
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
         },
-        credentials: "include",
-        body: JSON.stringify({
-            questId: questId,
-            image: image
+            credentials: "include",
+            body: JSON.stringify({
+                questId: questId,
+                image: image
         })
     })
 

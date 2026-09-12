@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, createContext, ReactNode, useContext } from "react";
+import { useState, useEffect, createContext, ReactNode, useContext, useCallback } from "react";
 
 import { Data } from "../model/types/data.type";
 import { StatsBadgeType } from "../model/types/statsbadge.type";
@@ -18,19 +18,18 @@ export function StatsBadgeProvider({ children }: {children: ReactNode}){
     const user = authClient.useSession();
     const userId = user.data?.session.id;
     
+    const fetchData = useCallback(async () => {
+        if (!userId) return;
+        setLoading(true);
+        await GetDashboard(userId).then(setData);
+        setLoading(false);
+    }, [userId]);
 
     useEffect(() => {
-
-        if(!userId) return;
-
-        async function fetchData() {
-            await GetDashboard(userId!).then(setData);
-            setLoading(false);
-        }
         fetchData();
-    }, [userId])
+    }, [fetchData]);
 
-    return <StatsBadgeContext.Provider value={{data, loading}}>
+    return <StatsBadgeContext.Provider value={{data, loading, fetchData}}>
         {children}
     </StatsBadgeContext.Provider>
 }
