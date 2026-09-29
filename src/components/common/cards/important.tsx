@@ -21,16 +21,16 @@ export default function ImportantCards(props: MyProps){
                 alt="important-progress"
                 width={500}
                 height={500}
-                className="relative top-[15px] left-3 z-50 xl:w-[160px] xl:h-[160px] w-[115px] h-[125px]"
+                className="relative top-[15px] left-3 z-50 xl:w-[160px] xl:h-[160px] w-[135px] h-[125px]"
                 loading="eager"
             />
-            <div className="absolute rounded-lg left-[22px] top-[21px] bg-black/50 w-[95px] h-[115px] xl:w-[135px] xl:h-[150px] p-2">
-                    <h1 className="text-[rgba(210,157,6,0.8)] text-[6px] xl:text-[10px] mb-1 ml-2">IMPORTANT TASKS</h1>
+            <div className="absolute rounded-lg left-[22px] top-[21px] bg-black/50 w-[115px] h-[115px] xl:w-[135px] xl:h-[150px] p-2">
+                    <h1 className="text-[rgba(210,157,6,0.8)] text-[9px] xl:text-[10px] mb-1 ml-2">IMPORTANT TASKS</h1>
                     <div>
                         <ul>
                             {importantTask.map((task, i) => (
-                                <li className="xl:text-[9px] text-[5px]" key={task.id}>
-                                    <p className="grid grid-cols-[1fr_60px_40px] xl:grid-cols-[0.5fr_100px_10px] items-center xl:mb-2">
+                                <li className="xl:text-[9px] text-[9px]" key={task.id}>
+                                    <p className="grid grid-cols-[1fr_90px_40px] xl:grid-cols-[0.5fr_100px_10px] items-center xl:mb-2">
                                         <span className={`inline-block w-4 h-4 bg-cover bg-center
                                             ${ completedTask[i].success
                                                 ? 
