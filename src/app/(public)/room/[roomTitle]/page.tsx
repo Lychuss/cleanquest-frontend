@@ -15,7 +15,7 @@ export default function Room(){
     const roomTitle = params.roomTitle as string;
 
     const { data: statsData , loading: statsLoading } = useStatsBadgeContext();
-    const { data: tasksData, loading: tasksLoading, fetchData } = useTasksContext();
+    const { data: tasksData, fetchData } = useTasksContext();
 
     const backgroundImage = () => {
         switch (roomTitle){
@@ -34,7 +34,7 @@ export default function Room(){
         fetchData(`${roomTitle}`);
     }, [])
 
-    if(statsLoading || tasksLoading){
+    if(statsLoading){
         return <Loading />;
     }
 
