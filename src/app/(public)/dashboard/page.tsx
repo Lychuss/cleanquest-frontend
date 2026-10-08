@@ -20,6 +20,10 @@ export default function Dashboard(){
     useEffect(() => {
         fetchStats();
     }, []);
+
+    if(statsLoading){
+        return <Loading />;
+    }
     
     if(data?.totalCompletion === undefined){
         return <div>Error!</div>
