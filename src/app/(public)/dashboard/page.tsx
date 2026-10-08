@@ -14,16 +14,12 @@ import { useEffect } from "react";
 export default function Dashboard(){
 
     const router = useRouter();
-    const { fetchData: fetchTask, loading: taskLoading } = useTasksContext();
+    const { fetchData: fetchTask} = useTasksContext();
     const {data, loading: statsLoading, fetchData: fetchStats} = useStatsBadgeContext();
 
     useEffect(() => {
         fetchStats();
     }, []);
-
-    if(taskLoading || statsLoading){
-        return <Loading />;
-    }
     
     if(data?.totalCompletion === undefined){
         return <div>Error!</div>
