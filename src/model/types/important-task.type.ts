@@ -21,7 +21,7 @@ export type TotalCompletion = {
         total: number,
         completed: number
     },
-}
+} 
 
 export type ImportantTaskList = ImportantTask[] | undefined;
 export type CompletedTaskList = CompletedTask[] | undefined;
