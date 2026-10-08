@@ -21,6 +21,5 @@ export type Tasks = {
 
 export type TasksContextType = {
     fetchData: (place: string) => Promise<void>,
-    data: Tasks | undefined,
-    loading: boolean
+    data: Tasks | undefined
 }
