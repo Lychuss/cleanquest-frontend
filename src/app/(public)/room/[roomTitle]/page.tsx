@@ -5,9 +5,10 @@ import StatsBadge from "@/src/components/ui/statsbadge";
 import Loading from "@/src/components/layouts/loading";
 import { useStatsBadgeContext } from "@/src/context/StatsBadgeContext";
 import { useTasksContext } from "@/src/context/TasksContext";
-import { useEffect, useState} from "react";
+import { useEffect} from "react";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 
 export default function Room(){
     const params = useParams();
@@ -38,8 +39,16 @@ export default function Room(){
         return <Loading />;
     }
 
-    return <main className="bg-cover bg-center min-h-screen w-full"
-            style={{ backgroundImage: `url(${backgroundImage()})`}}>
+    return <main className="relative min-h-screen w-full">
+
+        <Image 
+            src={`${backgroundImage()}`}
+            alt="room"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover -z-10"
+        />
 
         <section className="flex items-center gap-2 p-4">
             <PlayerLevel ign={statsData?.data.ingameName} level={statsData?.data.level} exp={statsData?.data.experience} />
