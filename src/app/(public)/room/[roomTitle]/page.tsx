@@ -50,7 +50,7 @@ export default function Room(){
             className="object-cover -z-10"
         />
 
-        <section className="flex items-center gap-2 p-4">
+        <section className="flex items-center p-2 m-0 -space-x-3">
             <PlayerLevel ign={statsData?.data.ingameName} level={statsData?.data.level} exp={statsData?.data.experience} />
             <StatsBadge icon="/icons/growth-power.png" alt="growth-power" value={statsData?.data.growth}/>
             <StatsBadge icon="/icons/completed-task-v2.png" alt="completed-task" value={statsData?.data.completedTask} />
