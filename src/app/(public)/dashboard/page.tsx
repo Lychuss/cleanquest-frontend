@@ -57,7 +57,7 @@ export default function Dashboard(){
             className="object-cover -z-10"/>
 
         <section>
-            <div className="flex p-4 items-center gap-2">
+            <div className="flex p-2 items-center m-0 -space-x-3">
 
                 <PlayerLevel ign={data?.data.ingameName} level={data?.data.level} exp={data?.data.experience} />
                 
