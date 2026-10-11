@@ -56,15 +56,13 @@ export default function Dashboard(){
             priority
             className="object-cover -z-10"/>
 
-        <section>
-            <div className="flex p-2 items-center m-0 -space-x-3">
+        <section className="flex p-2 items-center m-0 -space-x-3">
 
                 <PlayerLevel ign={data?.data.ingameName} level={data?.data.level} exp={data?.data.experience} />
                 
                 <StatsBadge icon="/icons/growth-power.png" alt="growth-power" value={data?.data.growth} />
                 <StatsBadge icon="/icons/completed-task-v2.png" alt="completed-task" value={data?.data.completedTask} />
 
-            </div>
         </section>
 
         <section>
